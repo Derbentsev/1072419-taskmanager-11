@@ -1,7 +1,7 @@
 # Личный проект «Менеджер задач» [![Build status][travis-image]][travis-url]
 
 * Студент: [Сергей Дербенцев](https://up.htmlacademy.ru/ecmascript/11/user/1072419).
-* Наставник: [Евгений Фаллер](https://htmlacademy.ru/profile/id505933).
+* Наставник: [`Неизвестно`].
 
 ---
 
