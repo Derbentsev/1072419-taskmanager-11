@@ -1,5 +1,5 @@
 /**
- * Создаем разметку Меню
+ * Создаем разметку блока Меню
  * @return {void}
  */
 const createSiteMenuTemplate = () => {
@@ -35,4 +35,7 @@ const createSiteMenuTemplate = () => {
   );
 };
 
-export {createSiteMenuTemplate};
+
+export {
+  createSiteMenuTemplate
+};

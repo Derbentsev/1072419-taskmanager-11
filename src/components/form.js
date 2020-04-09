@@ -50,4 +50,7 @@ const createFormTemplate = () => {
   );
 };
 
-export {createFormTemplate};
+
+export {
+  createFormTemplate
+};

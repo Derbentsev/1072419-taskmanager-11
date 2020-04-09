@@ -4,8 +4,8 @@
   "private": true,
   "description": "Учебный проект «Менеджер задач» от HTML Academy",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server --open",
+    "build": "webpack --env=dev -p",
+    "start": "webpack-dev-server --env=dev --open",
     "eslint": "eslint src/**/*.js",
     "test": "npm run eslint"
   },
