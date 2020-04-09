@@ -1,5 +1,5 @@
 /**
- * Создаем разметку Сортировка
+ * Создаем разметку блока Сортировка
  * @return {void}
  */
 const createSortTemplate = () => {
@@ -15,5 +15,6 @@ const createSortTemplate = () => {
     </section>`
   );
 };
+
 
 export {createSortTemplate};

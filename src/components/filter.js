@@ -1,7 +1,7 @@
 /**
  * Создаем разметку отдельного фильтра
- * @param {object} filter
- * @param {boolean} isChecked
+ * @param {object} filter - Фильтр
+ * @param {boolean} isChecked - Отметка, готова ли задача
  * @return {string}
  */
 const createFilterMarkup = (filter, isChecked) => {
@@ -22,8 +22,8 @@ const createFilterMarkup = (filter, isChecked) => {
 };
 
 /**
- * Создаем разметку Фильтры
- * @param {object} filters
+ * Создаем разметку блока Фильтры
+ * @param {object} filters - Массив фильтров
  * @return {string}
  */
 const createFilterTemplate = (filters) => {
@@ -35,6 +35,7 @@ const createFilterTemplate = (filters) => {
     </section>`
   );
 };
+
 
 export {
   createFilterTemplate

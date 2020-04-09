@@ -8,4 +8,7 @@ const createLoadButtonTemplate = () => {
   );
 };
 
-export {createLoadButtonTemplate};
+
+export {
+  createLoadButtonTemplate
+};

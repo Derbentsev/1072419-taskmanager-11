@@ -72,6 +72,7 @@ const createTaskTemplate = (task) => {
   );
 };
 
+
 export {
   createTaskTemplate
 };

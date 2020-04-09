@@ -20,16 +20,32 @@ const DefaultRepeatingDays = {
 };
 
 
+/**
+ * Выбирает из массива случайный элемент
+ * @param {array} array - Массив любой величины
+ * @return {object} - Случайный элемент массива
+ */
 const getRandomArrayItem = (array) => {
   const randomIndex = getRandomIntegerNumber(0, array.length);
 
   return array[randomIndex];
 };
 
+/**
+ * Выбирает случайную цифру из заданного промежутка
+ * @param {number} min - Минимально возможное число
+ * @param {number} max - Максимальное число
+ * @return {number} - Случайный элемент массива
+ */
 const getRandomIntegerNumber = (min, max) => {
   return min + Math.floor(Math.random() * (max - min));
 };
 
+
+/**
+ * Выбирает случайную дату
+ * @return {date} - Случайная дата
+ */
 const getRandomDate = () => {
   const targetDate = new Date();
   const sign = Math.random() > 0.5 ? 1 : 1;
@@ -46,6 +62,10 @@ const generateRepeatingDays = () => {
   });
 };
 
+/**
+ * Генерируем новую задачу
+ * @return {object} - Случайно сгенерированная задача
+ */
 const generateTask = () => {
   const dueDate = Math.random() > 0.5 ? null : getRandomDate();
 
@@ -59,11 +79,17 @@ const generateTask = () => {
   };
 };
 
+/**
+ * Генерируем массив с задачами
+ * @param {number} count - Число задач, которое нужно сгенерировать
+ * @return {array}
+ */
 const generateTasks = (count) => {
   return new Array(count)
     .fill(``)
     .map(generateTask);
 };
+
 
 export {
   generateTask,

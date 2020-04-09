@@ -2,6 +2,10 @@ const filterNames = [
   `all`, `overdue`, `today`, `favourites`, `repeating`, `archive`
 ];
 
+/**
+ * Генерируем фильтры
+ * @return {array} Массив фильров
+ */
 const generateFilters = () => {
   return filterNames.map((it) => {
     return {

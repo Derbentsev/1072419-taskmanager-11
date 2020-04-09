@@ -8,6 +8,12 @@ import {
 } from '../utils.js';
 
 
+/**
+ * Создаем шаблон разметки цветов в задаче
+ * @param {object} colors - Цвета
+ * @param {object} currentColor - Текущий цвет
+ * @return {string} - Разметку цветов в задаче
+ */
 const createColorsMarkup = (colors, currentColor) => {
   return (
     colors
@@ -31,6 +37,12 @@ const createColorsMarkup = (colors, currentColor) => {
   );
 };
 
+/**
+ * Создаем шаблон разметки дней в задаче
+ * @param {object} days - Дни недели
+ * @param {object} repeatingDays - Повторяющиеся дни
+ * @return {string} - Разметку дней в задаче
+ */
 const createReportingDaysMarkup = (days, repeatingDays) => {
   return (
     days
@@ -53,6 +65,11 @@ const createReportingDaysMarkup = (days, repeatingDays) => {
   );
 };
 
+/**
+ * Создаем шаблон разметки задачи
+ * @param {object} task - Задача
+ * @return {string} - Разметку задачи
+ */
 const createTaskEditTemplate = (task) => {
   const {
     description,
