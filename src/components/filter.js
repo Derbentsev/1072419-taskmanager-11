@@ -1,5 +1,7 @@
 /**
  * Создаем разметку отдельного фильтра
+ * @param {object} filter
+ * @param {boolean} isChecked
  * @return {string}
  */
 const createFilterMarkup = (filter, isChecked) => {
@@ -21,6 +23,7 @@ const createFilterMarkup = (filter, isChecked) => {
 
 /**
  * Создаем разметку Фильтры
+ * @param {object} filters
  * @return {string}
  */
 const createFilterTemplate = (filters) => {

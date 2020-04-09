@@ -8,6 +8,7 @@ import {
 
 /**
  * Создаем разметку Карточка задачи
+ * @param {object} task - Объект задача
  * @return {void}
  */
 const createTaskTemplate = (task) => {
