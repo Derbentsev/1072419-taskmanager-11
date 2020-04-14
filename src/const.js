@@ -1,4 +1,9 @@
-const COLORS = [
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`,
+};
+
+const Colors = [
   `black`,
   `yellow`,
   `blue`,
@@ -6,7 +11,7 @@ const COLORS = [
   `pink`,
 ];
 
-const DAYS = [
+const Days = [
   `mo`,
   `tu`,
   `we`,
@@ -16,7 +21,7 @@ const DAYS = [
   `su`,
 ];
 
-const MONTH_NAMES = [
+const MonthNames = [
   `January`,
   `February`,
   `March`,
@@ -33,7 +38,8 @@ const MONTH_NAMES = [
 
 
 export {
-  COLORS,
-  DAYS,
-  MONTH_NAMES
+  RenderPosition,
+  Colors,
+  Days,
+  MonthNames
 };

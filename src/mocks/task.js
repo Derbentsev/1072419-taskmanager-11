@@ -1,5 +1,5 @@
 import {
-  COLORS
+  Colors
 } from '../const.js';
 
 
@@ -73,7 +73,7 @@ const generateTask = () => {
     description: getRandomArrayItem(DescriptionItems),
     dueDate,
     repeatingDays: dueDate ? DefaultRepeatingDays : generateRepeatingDays(),
-    color: getRandomArrayItem(COLORS),
+    color: getRandomArrayItem(Colors),
     isArchive: Math.random() > 0.5,
     isFavorite: Math.random() > 0.5,
   };

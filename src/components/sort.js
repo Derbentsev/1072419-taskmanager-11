@@ -1,6 +1,8 @@
+import {createElement} from '../utils.js';
+
 /**
  * Создаем разметку блока Сортировка
- * @return {void}
+ * @return {string} Разметка
  */
 const createSortTemplate = () => {
   return (
@@ -10,11 +12,31 @@ const createSortTemplate = () => {
         <a href="#" class="board__filter">SORT BY DATE up</a>
         <a href="#" class="board__filter">SORT BY DATE down</a>
       </div>
-
-      <div class="board__tasks"></div>
     </section>`
   );
 };
 
+class Sort {
+  constructor() {
+    this._element = null;
+  }
 
-export {createSortTemplate};
+  getTemplate() {
+    return createSortTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
+
+export {Sort};

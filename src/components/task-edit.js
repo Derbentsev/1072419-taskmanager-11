@@ -1,10 +1,11 @@
 import {
-  DAYS,
-  MONTH_NAMES,
-  COLORS
+  Days,
+  MonthNames,
+  Colors
 } from '../const.js';
 import {
-  formatTime
+  formatTime,
+  createElement
 } from '../utils.js';
 
 
@@ -81,15 +82,15 @@ const createTaskEditTemplate = (task) => {
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
   const isDateShowing = !!dueDate;
 
-  const date = isDateShowing ? `${dueDate.getDate()} ${MONTH_NAMES[dueDate.getMonth()]}` : ``;
+  const date = isDateShowing ? `${dueDate.getDate()} ${MonthNames[dueDate.getMonth()]}` : ``;
   const time = isDateShowing ? formatTime(dueDate) : ``;
 
   const isRepeatingTask = Object.values(repeatingDays).some(Boolean);
   const repeatClass = isRepeatingTask ? `card--repeat` : ``;
   const deadlineClass = isExpired ? `card--deadline` : ``;
 
-  const colorsMarkup = createColorsMarkup(COLORS, color);
-  const repeatingDaysMarkup = createReportingDaysMarkup(DAYS, repeatingDays);
+  const colorsMarkup = createColorsMarkup(Colors, color);
+  const repeatingDaysMarkup = createReportingDaysMarkup(Days, repeatingDays);
 
   return `<article class="card card--edit card--${color} ${repeatClass} ${deadlineClass}">
     <form class="card__form" method="get">
@@ -170,7 +171,30 @@ const createTaskEditTemplate = (task) => {
   </article>`;
 };
 
+class TaskEdit {
+  constructor(task) {
+    this._task = task;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTaskEditTemplate(this._task);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
+
 
 export {
-  createTaskEditTemplate
+  TaskEdit
 };

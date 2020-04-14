@@ -1,18 +1,24 @@
 import {
-  createSiteMenuTemplate
+  SiteMenu
 } from './components/menu.js';
 import {
-  createFilterTemplate
+  Filter
 } from './components/filter.js';
 import {
-  createSortTemplate
+  Sort
 } from './components/sort.js';
 import {
-  createTaskTemplate
+  Task
 } from './components/task.js';
 import {
-  createLoadButtonTemplate
+  LoadButton
 } from './components/loadButton.js';
+import {
+  TaskEdit
+} from './components/taskEdit.js';
+import {
+  Board
+} from './components/board.js';
 import {
   generateFilters
 } from './mocks/filter.js';
@@ -20,11 +26,11 @@ import {
   generateTasks
 } from './mocks/task.js';
 import {
-  render
-} from './components/rendering.js';
+  render,
+} from './utils.js';
 import {
-  createTaskEditTemplate
-} from './components/taskEdit.js';
+  RenderPosition
+} from './const.js';
 
 
 const TASK_COUNT = 22;
@@ -39,7 +45,10 @@ const tasks = generateTasks(TASK_COUNT);
 
 render(siteHeaderElement, createSiteMenuTemplate(), `beforeend`);
 render(siteMainElement, createFilterTemplate(filters), `beforeend`);
-render(siteMainElement, createSortTemplate(), `beforeend`);
+render(siteMainElement, createBoardTemplate(), `beforeend`);
+
+const taskBoard = siteMainElement.querySelector(`.board container`);
+render(taskBoard, createSortTemplate(), `afterbegin`);
 
 const taskListElement = siteMainElement.querySelector(`.board__tasks`);
 const boardElement = siteMainElement.querySelector(`.board`);
