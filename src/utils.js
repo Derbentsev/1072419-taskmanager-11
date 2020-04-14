@@ -2,6 +2,7 @@ import {
   RenderPosition
 } from "./const";
 
+
 /**
  * Создаем функцию для рендеринга (вставки в DOM) компонентов
  * @param {object} container - Элемент, который вставляем
