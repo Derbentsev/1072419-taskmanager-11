@@ -1,4 +1,5 @@
-import {createElement} from `../utils.js`;
+import {createElement} from '../utils.js';
+
 
 /**
  * Создаем разметку блока Задач
@@ -21,7 +22,7 @@ class Tasks {
 
   getElement() {
     if (!this._element) {
-      this._element = createElement(this.getTemplate);
+      this._element = createElement(this.getTemplate());
     }
 
     return this._element;

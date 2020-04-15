@@ -1,5 +1,6 @@
 import {createElement} from '../utils.js';
 
+
 /**
  * Создаем разметку блока Сортировка
  * @return {string} Разметка
