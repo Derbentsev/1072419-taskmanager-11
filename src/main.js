@@ -32,13 +32,11 @@ import {
   render,
 } from './utils.js';
 import {
-  RenderPosition
+  RenderPosition,
+  TASK_COUNT,
+  SHOWING_TASKS_COUNT_ON_START,
+  SHOWING_TASKS_COUNT_BY_BUTTON
 } from './const.js';
-
-
-const TASK_COUNT = 22;
-const SHOWING_TASKS_COUNT_ON_START = 8;
-const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 
 const renderTask = (taskListElement, task) => {
