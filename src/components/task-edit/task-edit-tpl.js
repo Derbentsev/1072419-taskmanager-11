@@ -2,12 +2,10 @@ import {
   Days,
   MonthNames,
   Colors
-} from '../const.js';
+} from '../../consts.js';
 import {
   formatTime,
-  createElement
-} from '../utils.js';
-
+} from '../../utils.js';
 
 /**
  * Создаем шаблон разметки цветов в задаче
@@ -171,30 +169,7 @@ const createTaskEditTemplate = (task) => {
   </article>`;
 };
 
-class TaskEdit {
-  constructor(task) {
-    this._task = task;
-    this._element = null;
-  }
-
-  getTemplate() {
-    return createTaskEditTemplate(this._task);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-}
-
 
 export {
-  TaskEdit
+  createTaskEditTemplate
 };

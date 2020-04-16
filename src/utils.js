@@ -1,6 +1,6 @@
 import {
   RenderPosition
-} from "./const";
+} from "./consts";
 
 
 /**

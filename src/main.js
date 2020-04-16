@@ -1,27 +1,27 @@
 import {
   SiteMenu
-} from './components/site-menu.js';
+} from './components/site-menu/site-menu.js';
 import {
   Filter
-} from './components/filter.js';
+} from './components/filter/filter.js';
 import {
   Sort
-} from './components/sort.js';
+} from './components/sort/sort.js';
 import {
   Task
-} from './components/task.js';
+} from './components/task/task.js';
 import {
   Tasks
-} from './components/tasks.js';
+} from './components/task/task-board.js';
 import {
   LoadButton
-} from './components/load-button.js';
+} from './components/load-button/load-button.js';
 import {
   TaskEdit
-} from './components/task-edit.js';
+} from './components/task-edit/task-edit.js';
 import {
   Board
-} from './components/board.js';
+} from './components/board/board.js';
 import {
   generateFilters
 } from './mocks/filter.js';
@@ -36,7 +36,7 @@ import {
   TASK_COUNT,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON
-} from './const.js';
+} from './consts.js';
 
 
 const renderTask = (taskListElement, task) => {
