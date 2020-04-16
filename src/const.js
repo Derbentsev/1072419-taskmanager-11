@@ -1,4 +1,9 @@
-const COLORS = [
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`,
+};
+
+const Colors = [
   `black`,
   `yellow`,
   `blue`,
@@ -6,7 +11,7 @@ const COLORS = [
   `pink`,
 ];
 
-const DAYS = [
+const Days = [
   `mo`,
   `tu`,
   `we`,
@@ -16,7 +21,7 @@ const DAYS = [
   `su`,
 ];
 
-const MONTH_NAMES = [
+const MonthNames = [
   `January`,
   `February`,
   `March`,
@@ -32,8 +37,17 @@ const MONTH_NAMES = [
 ];
 
 
+const TASK_COUNT = 22;
+const SHOWING_TASKS_COUNT_ON_START = 8;
+const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
+
+
 export {
-  COLORS,
-  DAYS,
-  MONTH_NAMES
+  RenderPosition,
+  Colors,
+  Days,
+  MonthNames,
+  TASK_COUNT,
+  SHOWING_TASKS_COUNT_ON_START,
+  SHOWING_TASKS_COUNT_BY_BUTTON,
 };
