@@ -1,27 +1,30 @@
 import {
   SiteMenu
-} from './components/site-menu.js';
+} from './components/site-menu/site-menu.js';
 import {
   Filter
-} from './components/filter.js';
+} from './components/filter/filter.js';
 import {
   Sort
-} from './components/sort.js';
+} from './components/sort/sort.js';
 import {
   Task
-} from './components/task.js';
+} from './components/task/task.js';
 import {
   Tasks
-} from './components/tasks.js';
+} from './components/task-board/task-board.js';
 import {
   LoadButton
-} from './components/load-button.js';
+} from './components/load-button/load-button.js';
 import {
   TaskEdit
-} from './components/task-edit.js';
+} from './components/task-edit/task-edit.js';
 import {
   Board
-} from './components/board.js';
+} from './components/board/board.js';
+import {
+  NoTask
+} from './components/no-task/no-task.js';
 import {
   generateFilters
 } from './mocks/filter.js';
@@ -36,17 +39,30 @@ import {
   TASK_COUNT,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON
-} from './const.js';
+} from './consts.js';
 
 
 const renderTask = (taskListElement, task) => {
   const onEditButtonClick = () => {
     taskListElement.replaceChild(taskEditComponent.getElement(), taskComponent.getElement());
+    document.addEventListener(`keydown`, onEscKeydown);
+  };
+
+  const closeEditForm = () => {
+    taskListElement.replaceChild(taskComponent.getElement(), taskEditComponent.getElement());
   };
 
   const onEditFormSubmit = (evt) => {
     evt.preventDefault();
-    taskListElement.replaceChild(taskComponent.getElement(), taskEditComponent.getElement());
+    closeEditForm();
+    document.removeEventListener(`keydown`, onEscKeydown);
+  };
+
+  const onEscKeydown = (evt) => {
+    if (evt.key === `Escape`) {
+      evt.preventDefault();
+      closeEditForm();
+    }
   };
 
   const taskComponent = new Task(task);
@@ -93,11 +109,15 @@ const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 const filters = generateFilters();
-const tasks = generateTasks(TASK_COUNT);
 
 render(siteHeaderElement, new SiteMenu().getElement(), RenderPosition.BEFOREEND);
 render(siteMainElement, new Filter(filters).getElement(), RenderPosition.BEFOREEND);
 
-const boardComponent = new Board();
-render(siteMainElement, boardComponent.getElement(), RenderPosition.BEFOREEND);
-renderBoard(boardComponent, tasks);
+const tasks = generateTasks(TASK_COUNT);
+if (tasks.length > 0) {
+  const boardComponent = new Board();
+  render(siteMainElement, boardComponent.getElement(), RenderPosition.BEFOREEND);
+  renderBoard(boardComponent, tasks);
+} else {
+  render(siteMainElement, new NoTask().getElement(), RenderPosition.BEFOREEND);
+}

@@ -1,15 +1,6 @@
-import {createElement} from '../utils.js';
+import {createElement} from '../../utils.js';
+import {createLoadButtonTemplate} from './load-button-tpl.js';
 
-
-/**
- * Создаем разметку Кнопка Load more»
- * @return {void}
- */
-const createLoadButtonTemplate = () => {
-  return (
-    `<button class="load-more" type="button">load more</button>`
-  );
-};
 
 class LoadButton {
   constructor() {

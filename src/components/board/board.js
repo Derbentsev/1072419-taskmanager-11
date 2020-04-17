@@ -1,15 +1,6 @@
-import {createElement} from "../utils.js";
+import {createElement} from '../../utils.js';
+import {createBoardTemplate} from './board-tpl.js';
 
-
-/**
- * Создаем разметку блока Доски
- * @return {string} Разметка
- */
-const createBoardTemplate = () => {
-  return (
-    `<section class="board container"></section>`
-  );
-};
 
 class Board {
   constructor() {

@@ -1,5 +1,3 @@
-import {createElement} from "../utils.js";
-
 /**
  * Создаем разметку отдельного фильтра
  * @param {object} filter - Фильтр
@@ -38,30 +36,6 @@ const createFilterTemplate = (filters) => {
   );
 };
 
-class Filter {
-  constructor(filters) {
-    this._filters = filters;
-    this._element = null;
-  }
-
-  getTemplate() {
-    return createFilterTemplate(this._filters);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-}
-
-
 export {
-  Filter
+  createFilterTemplate
 };

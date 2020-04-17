@@ -1,15 +1,6 @@
-import {createElement} from '../utils.js';
+import {createElement} from '../../utils.js';
+import {createTaskTemplate} from './task-board-tpl.js';
 
-
-/**
- * Создаем разметку блока Задач
- * @return {string} Разметка
- */
-const createTaskTemplate = () => {
-  return (
-    `<div class="board__tasks"></div>`
-  );
-};
 
 class Tasks {
   constructor() {
