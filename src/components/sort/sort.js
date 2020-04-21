@@ -1,28 +1,9 @@
-import {createElement} from '../../utils.js';
-import {createSortTemplate} from './sort-tpl.js';
+import {createSortTemplate} from './sort-tpl';
+import {AbstractComponent} from '../abstract-component';
 
 
-class Sort {
-  constructor() {
-    this._element = null;
-  }
-
+export class Sort extends AbstractComponent {
   getTemplate() {
     return createSortTemplate();
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
-
-
-export {Sort};

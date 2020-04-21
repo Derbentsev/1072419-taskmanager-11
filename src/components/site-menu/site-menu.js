@@ -1,30 +1,9 @@
-import {createElement} from '../../utils.js';
-import {createSiteMenuTemplate} from './site-menu-tpl.js';
+import {createSiteMenuTemplate} from './site-menu-tpl';
+import {AbstractComponent} from '../abstract-component';
 
 
-class SiteMenu {
-  constructor() {
-    this._element = null;
-  }
-
+export class SiteMenu extends AbstractComponent {
   getTemplate() {
     return createSiteMenuTemplate();
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
-
-
-export {
-  SiteMenu
-};

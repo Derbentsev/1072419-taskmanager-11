@@ -1,5 +1,10 @@
 const filterNames = [
-  `all`, `overdue`, `today`, `favourites`, `repeating`, `archive`
+  `all`,
+  `overdue`,
+  `today`,
+  `favourites`,
+  `repeating`,
+  `archive`
 ];
 
 /**
@@ -16,4 +21,6 @@ const generateFilters = () => {
 };
 
 
-export {generateFilters};
+export {
+  generateFilters
+};

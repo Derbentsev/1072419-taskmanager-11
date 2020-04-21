@@ -1,45 +1,45 @@
 import {
   SiteMenu
-} from './components/site-menu/site-menu.js';
+} from './components/site-menu/site-menu';
 import {
   Filter
-} from './components/filter/filter.js';
+} from './components/filter/filter';
 import {
   Sort
-} from './components/sort/sort.js';
+} from './components/sort/sort';
 import {
   Task
-} from './components/task/task.js';
+} from './components/task/task';
 import {
   Tasks
-} from './components/task-board/task-board.js';
+} from './components/task-board/task-board';
 import {
   LoadButton
-} from './components/load-button/load-button.js';
+} from './components/load-button/load-button';
 import {
   TaskEdit
-} from './components/task-edit/task-edit.js';
+} from './components/task-edit/task-edit';
 import {
   Board
-} from './components/board/board.js';
+} from './components/board/board';
 import {
   NoTask
-} from './components/no-task/no-task.js';
+} from './components/no-task/no-task';
 import {
   generateFilters
-} from './mocks/filter.js';
+} from './mocks/filter';
 import {
   generateTasks
-} from './mocks/task.js';
+} from './mocks/task';
 import {
   render,
-} from './utils.js';
+} from './utils';
 import {
   RenderPosition,
   TASK_COUNT,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON
-} from './consts.js';
+} from './consts';
 
 
 const renderTask = (taskListElement, task) => {
