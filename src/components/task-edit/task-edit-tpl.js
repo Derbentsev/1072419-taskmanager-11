@@ -2,10 +2,10 @@ import {
   Days,
   MonthNames,
   Colors
-} from '../../consts.js';
+} from '../../consts';
 import {
   formatTime,
-} from '../../utils.js';
+} from '../../utils/common';
 
 /**
  * Создаем шаблон разметки цветов в задаче
