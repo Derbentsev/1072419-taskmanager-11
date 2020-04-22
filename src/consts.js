@@ -36,6 +36,12 @@ const MonthNames = [
   `December`,
 ];
 
+const SortType = {
+  DATE_DOWN: `date-down`,
+  DATE_UP: `date-up`,
+  DEFAULT: `default`,
+};
+
 
 const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
@@ -47,6 +53,7 @@ export {
   Colors,
   Days,
   MonthNames,
+  SortType,
   TASK_COUNT,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON,
