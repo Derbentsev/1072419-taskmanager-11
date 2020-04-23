@@ -1,53 +1,24 @@
 import {
   createTaskTemplate
-} from './task-tpl.js';
+} from './task-tpl';
 import {
-  createElement,
-} from '../../utils.js';
+  AbstractComponent
+} from '../abstract-component';
 
 
-/**
- * Класс, представляющий задачу
- */
-class Task {
-  /**
-   * Создаем новую задачу
-   * @param {object} task - Задача
-   */
+export class Task extends AbstractComponent {
   constructor(task) {
+    super();
+
     this._task = task;
-    this._element = null;
   }
 
-  /**
-   * Создаём вёрстку задачи
-   * @return {string} Вёрстка задачи
-   */
   getTemplate() {
     return createTaskTemplate(this._task);
   }
 
-  /**
-   * Возвращаем вёрстку задачи
-   * @return {string} Вёрстка задачи
-   */
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  /**
-   * Удаляем вёрстку задачи
-   */
-  removeElement() {
-    this._element = null;
+  setEditButtonClickHandler(handler) {
+    this.getElement().querySelector(`.card__btn--edit`)
+      .addEventListener(`click`, handler);
   }
 }
-
-
-export {
-  Task
-};

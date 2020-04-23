@@ -1,28 +1,9 @@
-import {createElement} from '../../utils.js';
-import {createBoardTemplate} from './board-tpl.js';
+import {createBoardTemplate} from './board-tpl';
+import {AbstractComponent} from '../abstract-component';
 
 
-class Board {
-  constructor() {
-    this._element = null;
-  }
-
+export class Board extends AbstractComponent {
   getTemplate() {
     return createBoardTemplate();
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 }
-
-
-export {Board};

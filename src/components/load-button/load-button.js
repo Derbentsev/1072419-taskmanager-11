@@ -1,30 +1,13 @@
-import {createElement} from '../../utils.js';
-import {createLoadButtonTemplate} from './load-button-tpl.js';
+import {createLoadButtonTemplate} from './load-button-tpl';
+import {AbstractComponent} from '../abstract-component';
 
 
-class LoadButton {
-  constructor() {
-    this._element = null;
-  }
-
+export class LoadButton extends AbstractComponent {
   getTemplate() {
     return createLoadButtonTemplate();
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setClickHandler(handler) {
+    this.getElement().addEventListener(`click`, handler);
   }
 }
-
-
-export {
-  LoadButton
-};

@@ -1,30 +1,11 @@
 import {
   createNoTaskTemplate
-} from './no-task-tpl.js';
-import {
-  createElement
-} from '../../utils.js';
+} from './no-task-tpl';
+import {AbstractComponent} from '../abstract-component';
 
 
-class NoTask {
-  constructor() {
-    this._element = null;
-  }
-
+export class NoTask extends AbstractComponent {
   getTemplate() {
     return createNoTaskTemplate();
   }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
 }
-
-
-export {
-  NoTask
-};

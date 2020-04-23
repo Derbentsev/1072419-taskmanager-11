@@ -1,6 +1,6 @@
 import {
   Colors
-} from '../consts.js';
+} from '../consts';
 
 
 const DescriptionItems = [

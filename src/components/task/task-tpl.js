@@ -1,9 +1,9 @@
 import {
   MonthNames
-} from '../../consts.js';
+} from '../../consts';
 import {
   formatTime
-} from '../../utils.js';
+} from '../../utils/common';
 
 
 /**
