@@ -28,7 +28,6 @@ import {
   SHOWING_TASKS_COUNT_BY_BUTTON,
 } from '../consts';
 
-
 const renderTask = (taskListElement, task) => {
   const onEditButtonClick = () => {
     replace(taskEditComponent, taskComponent);
