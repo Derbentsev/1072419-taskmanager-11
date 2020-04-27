@@ -61,6 +61,7 @@ export class BoardController {
     this._tasks = [];
     this._showedTasksControllers = [];
     this._showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
+
     this._noTasksComponent = new NoTask();
     this._sortComponent = new Sort();
     this._tasksComponent = new Tasks();
@@ -107,7 +108,7 @@ export class BoardController {
     this._loadButtonComponent.setClickHandler(() => {
       const prevTasksCount = this._showingTasksCount;
       const taskListElement = this._tasksComponent.getElement();
-      this._showingTasksCount = this.showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
+      this._showingTasksCount = this._showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
 
       const sortedTasks = getSortedTasks(this._tasks, this._sortComponent.getSortType(), prevTasksCount, this._showingTasksCount);
       const newTasks = renderTasks(taskListElement, sortedTasks, this._onDataChange, this._onViewChange);
@@ -146,7 +147,5 @@ export class BoardController {
 
     const newTasks = renderTasks(taskListElement, sortedTasks, this._onDataChange, this._onViewChange);
     this._showedTasksControllers = newTasks;
-
-    this._renderLoadButton();
   }
 }

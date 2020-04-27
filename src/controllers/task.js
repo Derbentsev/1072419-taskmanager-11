@@ -62,8 +62,8 @@ export class TaskController {
       }));
     });
 
-    this._taskComponent.setFavoritesButtonCLickHandler(() => {
-      this.onDataChange(this, task, Object.assign({}, task, {
+    this._taskComponent.setFavoritesButtonClickHandler(() => {
+      this._onDataChange(this, task, Object.assign({}, task, {
         isFavorite: !task.isFavorite,
       }));
     });

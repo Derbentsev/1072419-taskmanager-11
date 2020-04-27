@@ -52,6 +52,7 @@ const createReportingDaysMarkup = (days, repeatingDays) => {
     days
     .map((day, index) => {
       const isChecked = repeatingDays[day];
+
       return (
         `<input
             class="visually-hidden card__repeat-day-input"

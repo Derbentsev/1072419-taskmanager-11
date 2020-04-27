@@ -12,20 +12,20 @@ export class TaskEdit extends AbstractSmartComponent {
     this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
     this._submitHandler = null;
 
-    this.subscribeOnEvents();
+    this._subscribeOnEvents();
   }
 
   getTemplate() {
     return createTaskEditTemplate(this._task, {
-      _isDateShowing: this._isDateShowing,
-      _isRepeatingTask: this._isRepeatingTask,
-      _activeRepeatingDays: this._activeRepeatingDays,
+      isDateShowing: this._isDateShowing,
+      isRepeatingTask: this._isRepeatingTask,
+      activeRepeatingDays: this._activeRepeatingDays,
     });
   }
 
   recoveryListeners() {
     this.setSubmitHandler(this._submitHandler);
-    this.subscribeOnEvents();
+    this._subscribeOnEvents();
   }
 
   rerender() {
