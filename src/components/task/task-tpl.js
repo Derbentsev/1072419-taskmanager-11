@@ -6,13 +6,21 @@ import {
 } from '../../utils/common';
 
 
+const createButtonMarkup = (name, isArchive = true) => {
+  return (
+    `<button type="button" class="card__btn card__btn--${name} ${isArchive ? `` : `card__btn--disabled`}">
+      ${name}
+    </button>`
+  );
+};
+
 /**
  * Создаем разметку Карточка задачи
  * @param {object} task - Объект задача
  * @return {void}
  */
-const createTaskTemplate = (task) => {
-  const {description, dueDate, color, repeatingDays, isArchive, isFavorite} = task;
+export const createTaskTemplate = (task) => {
+  const {description, dueDate, color, repeatingDays} = task;
 
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
   const isDateShowing = !!dueDate;
@@ -20,28 +28,21 @@ const createTaskTemplate = (task) => {
   const date = isDateShowing ? `${dueDate.getDate()} ${MonthNames[dueDate.getMonth()]}` : ``;
   const time = isDateShowing ? formatTime(dueDate) : ``;
 
+  const editButton = createButtonMarkup(`edit`);
+  const archiveButton = createButtonMarkup(`archive`, !task.isArchive);
+  const favoritesButton = createButtonMarkup(`favorites`, !task.isFavorite);
+
   const repeatClass = Object.values(repeatingDays).some(Boolean) ? `card--repeat` : ``;
   const deadlineClass = isExpired ? `card--deadline` : ``;
-  const archiveButtonInactiveClass = isArchive ? `` : `card__btn--disabled`;
-  const favoriteButtonInactiveClass = isFavorite ? `` : `card__btn--disabled`;
 
   return (
     `<article class="card card--${color} ${repeatClass} ${deadlineClass}">
       <div class="card__form">
         <div class="card__inner">
           <div class="card__control">
-            <button type="button" class="card__btn card__btn--edit">
-              edit
-            </button>
-            <button type="button" class="card__btn card__btn--archive ${archiveButtonInactiveClass}">
-              archive
-            </button>
-            <button
-              type="button"
-              class="card__btn card__btn--favorites ${favoriteButtonInactiveClass}"
-            >
-              favorites
-            </button>
+            ${editButton}
+            ${archiveButton}
+            ${favoritesButton}
           </div>
 
           <div class="card__color-bar">
@@ -70,8 +71,4 @@ const createTaskTemplate = (task) => {
       </div>
     </article>`
   );
-};
-
-export {
-  createTaskTemplate
 };
