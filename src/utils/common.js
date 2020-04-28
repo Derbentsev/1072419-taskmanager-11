@@ -1,25 +1,21 @@
-/**
- * Добавляем впереди нули к строке, если число меньше 10
- * @param {string} value - Исходная строка
- * @return {string} Строка с добавленным нулем
- */
-const castTimeFormat = (value) => {
-  return value < 10 ? `0${value}` : String(value);
-};
+import moment from 'moment';
+
 
 /**
  * Преобразовываем время в формате `часы:минуты`
- * @param {string} time - Исходная запись времени
+ * @param {string} date - Исходная запись времени
  * @return {string} Время в формате `часы:минуты`
  */
-const formatTime = (time) => {
-  const hours = castTimeFormat(time.getHours() % 12);
-  const minutes = castTimeFormat(time.getMinutes());
+const formatTime = (date) => {
+  return moment(date).format(`hh:mm`);
+};
 
-  return `${hours}:${minutes}`;
+const formatDate = (date) => {
+  return moment(date).format(`DD MMMM`);
 };
 
 
 export {
   formatTime,
+  formatDate,
 };
