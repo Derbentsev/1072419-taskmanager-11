@@ -19,9 +19,9 @@ import {
 } from '../utils/render';
 import {
   RenderPosition,
-  SortType,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON,
+  SortType,
 } from '../consts';
 
 
