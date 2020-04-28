@@ -7,6 +7,11 @@ import {
   formatTime,
 } from '../../utils/common';
 
+
+const isRepeating = (repeatingDays) => {
+  return Object.values(repeatingDays).some(Boolean);
+};
+
 /**
  * Создаем шаблон разметки цветов в задаче
  * @param {object} colors - Цвета
@@ -47,6 +52,7 @@ const createReportingDaysMarkup = (days, repeatingDays) => {
     days
     .map((day, index) => {
       const isChecked = repeatingDays[day];
+
       return (
         `<input
             class="visually-hidden card__repeat-day-input"
@@ -64,31 +70,22 @@ const createReportingDaysMarkup = (days, repeatingDays) => {
   );
 };
 
-/**
- * Создаем шаблон разметки задачи
- * @param {object} task - Задача
- * @return {string} - Разметку задачи
- */
-const createTaskEditTemplate = (task) => {
-  const {
-    description,
-    dueDate,
-    color,
-    repeatingDays
-  } = task;
+const createTaskEditTemplate = (task, options = {}) => {
+  const {description, dueDate, color} = task;
+  const {isDateShowing, isRepeatingTask, activeRepeatingDays} = options;
 
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
-  const isDateShowing = !!dueDate;
+  const isBlockSaveButton = (isDateShowing && isRepeatingTask) ||
+    (isRepeatingTask && !isRepeating(activeRepeatingDays));
 
-  const date = isDateShowing ? `${dueDate.getDate()} ${MonthNames[dueDate.getMonth()]}` : ``;
-  const time = isDateShowing ? formatTime(dueDate) : ``;
+  const date = (isDateShowing && dueDate) ? `${dueDate.getDate()} ${MonthNames[dueDate.getMonth()]}` : ``;
+  const time = (isDateShowing && dueDate) ? formatTime(dueDate) : ``;
 
-  const isRepeatingTask = Object.values(repeatingDays).some(Boolean);
   const repeatClass = isRepeatingTask ? `card--repeat` : ``;
   const deadlineClass = isExpired ? `card--deadline` : ``;
 
   const colorsMarkup = createColorsMarkup(Colors, color);
-  const repeatingDaysMarkup = createReportingDaysMarkup(Days, repeatingDays);
+  const repeatingDaysMarkup = createReportingDaysMarkup(Days, activeRepeatingDays);
 
   return `<article class="card card--edit card--${color} ${repeatClass} ${deadlineClass}">
     <form class="card__form" method="get">
@@ -161,7 +158,7 @@ const createTaskEditTemplate = (task) => {
         </div>
 
         <div class="card__status-btns">
-          <button class="card__save" type="submit">save</button>
+          <button class="card__save" type="submit" ${isBlockSaveButton ? `disabled` : ``}>save</button>
           <button class="card__delete" type="button">delete</button>
         </div>
       </div>
