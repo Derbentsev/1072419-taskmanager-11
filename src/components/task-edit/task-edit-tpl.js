@@ -5,12 +5,10 @@ import {
 import {
   formatTime,
   formatDate,
+  isRepeating,
+  isOverdueDate,
 } from '../../utils/common';
 
-
-const isRepeating = (repeatingDays) => {
-  return Object.values(repeatingDays).some(Boolean);
-};
 
 /**
  * Создаем шаблон разметки цветов в задаче
@@ -74,7 +72,7 @@ const createTaskEditTemplate = (task, options = {}) => {
   const {description, dueDate, color} = task;
   const {isDateShowing, isRepeatingTask, activeRepeatingDays} = options;
 
-  const isExpired = dueDate instanceof Date && dueDate < Date.now();
+  const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, Date.now());
   const isBlockSaveButton = (isDateShowing && isRepeatingTask) ||
     (isRepeatingTask && !isRepeating(activeRepeatingDays));
 

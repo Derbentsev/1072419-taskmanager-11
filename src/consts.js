@@ -3,13 +3,15 @@ const RenderPosition = {
   BEFOREEND: `beforeend`,
 };
 
-const Colors = [
-  `black`,
-  `yellow`,
-  `blue`,
-  `green`,
-  `pink`,
-];
+const Color = {
+  BLACK: `black`,
+  YELLOW: `yellow`,
+  BLUE: `blue`,
+  GREEN: `green`,
+  PINK: `pink`,
+};
+
+const COLORS = Object.values(Color);
 
 const Days = [
   `mo`,

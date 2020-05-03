@@ -1,6 +1,7 @@
 import {
   formatTime,
   formatDate,
+  isOverdueDate,
 } from '../../utils/common';
 
 
@@ -20,7 +21,7 @@ const createButtonMarkup = (name, isArchive = true) => {
 export const createTaskTemplate = (task) => {
   const {description, dueDate, color, repeatingDays} = task;
 
-  const isExpired = dueDate instanceof Date && dueDate < Date.now();
+  const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, Date.now());
   const isDateShowing = !!dueDate;
 
   const date = isDateShowing ? formatDate(dueDate) : ``;

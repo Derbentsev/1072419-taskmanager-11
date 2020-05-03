@@ -14,10 +14,12 @@ import {
 } from '../consts';
 
 
-const Mode = {
+export const Mode = {
   DEFAULT: `default`,
   EDIT: `edit`,
 };
+
+export const EmptyTask = {};
 
 
 export class TaskController {
@@ -34,9 +36,10 @@ export class TaskController {
     this._onEscKeyDown = this._onEscKeyDown.bind(this);
   }
 
-  render(task) {
+  render(task, mode) {
     const oldTaskComponent = this._taskComponent;
     const oldTaskEditComponent = this._taskEditComponent;
+    this._mode = mode;
 
     this._taskComponent = new Task(task);
     this._taskEditComponent = new TaskEdit(task);
@@ -48,7 +51,8 @@ export class TaskController {
 
     const onEditFormSubmit = (evt) => {
       evt.preventDefault();
-      this._replaceEditToTask();
+      const data = this._taskEditComponent.getData();
+      this._onDataChange(this, task, data);
       document.removeEventListener(`keydown`, onEscKeydown);
     };
 
@@ -73,10 +77,12 @@ export class TaskController {
 
     this._taskComponent.setEditButtonClickHandler(onEditButtonClick);
     this._taskEditComponent.setSubmitHandler(onEditFormSubmit);
+    this._taskEditComponent.setDeleteButtonClickHandler(() => this._onDataChange(this, task, null));
 
     if (oldTaskComponent && oldTaskEditComponent) {
       replace(this._taskComponent, oldTaskComponent);
       replace(this._taskEditComponent, oldTaskEditComponent);
+      this._replaceEditToTask();
     } else {
       render(this._container, this._taskComponent, RenderPosition.BEFOREEND);
     }
@@ -96,7 +102,9 @@ export class TaskController {
 
   _replaceEditToTask() {
     this._taskEditComponent.reset();
-    replace(this._taskComponent, this._taskEditComponent);
+    if (document.contains(this._taskEditComponent.getElement())) {
+      replace(this._taskComponent, this._taskEditComponent);
+    }
     this._mode = Mode.DEFAULT;
   }
 

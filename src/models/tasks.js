@@ -24,6 +24,20 @@ export class Tasks {
     this._callHandlers(this._dataChangeHandler);
   }
 
+  removeTask(id) {
+    const index = this._tasks.findIndex((it) => it.id === id);
+
+    if (index === -1) {
+      return false;
+    }
+
+    this._tasks = [].concat(this._tasks.slice(0, index), this._tasks.slice(index + 1));
+
+    this._callHandlers(this._dataChangeHandler);
+
+    return true;
+  }
+
   updateTask(id, task) {
     const index = this._tasks.findIndex((it) => it.id === id);
 
@@ -41,6 +55,11 @@ export class Tasks {
   setFilter(filterType) {
     this._activeFilterType = filterType;
     this._callHandlers(this._filterChangeHandler);
+  }
+
+  addTask(task) {
+    this._tasks = [].concat(task, this._tasks);
+    this._callHandlers(this._dataChangeHandler);
   }
 
   setFilterChangeHandler(handler) {
