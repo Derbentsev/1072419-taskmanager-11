@@ -23,19 +23,24 @@ import {
 import {
   BoardController
 } from './controllers/board';
+import {
+  TasksModel
+} from './models/tasks';
 
 
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 const tasks = generateTasks(TASK_COUNT);
+const tasksModel = new TasksModel();
+tasksModel.setTasks(tasks);
 const filters = generateFilters();
 
 render(siteHeaderElement, new SiteMenu(), RenderPosition.BEFOREEND);
 render(siteMainElement, new Filter(filters), RenderPosition.BEFOREEND);
 
 const boardComponent = new Board();
-const boardController = new BoardController(boardComponent);
+const boardController = new BoardController(boardComponent, tasksModel);
 
 render(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
 boardController.render(tasks);
