@@ -1,7 +1,6 @@
 export class Tasks {
   constructor() {
     this._tasks = [];
-
     this._dataChangeHandler = [];
   }
 
