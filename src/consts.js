@@ -42,6 +42,15 @@ const SortType = {
   DEFAULT: `default`,
 };
 
+const FilterType = {
+  ALL: `all`,
+  ARCGIVE: `archive`,
+  FAVORITES: `archive`,
+  OVERDUE: `overdue`,
+  REPEATING: `repeating`,
+  TODAY: `today`,
+};
+
 
 const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
@@ -54,6 +63,7 @@ export {
   Days,
   MonthNames,
   SortType,
+  FilterType,
   TASK_COUNT,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON,
