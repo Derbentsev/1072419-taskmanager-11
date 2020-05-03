@@ -1,16 +1,27 @@
+import {getTasksByFilter} from '../utils/filter';
+import {FilterType} from '../consts';
+
+
 export class Tasks {
   constructor() {
     this._tasks = [];
+    this._activeFilterType = FilterType.ALL;
+
     this._dataChangeHandler = [];
+    this._filterChangeHandler = [];
   }
 
   getTasks() {
+    return getTasksByFilter(this._tasks, this._activeFilterType);
+  }
+
+  getTasksAll() {
     return this._tasks;
   }
 
   setTask(tasks) {
     this._tasks = Array.from(tasks);
-    this._callHandler(this._dataChangeHandler);
+    this._callHandlers(this._dataChangeHandler);
   }
 
   updateTask(id, task) {
@@ -22,16 +33,25 @@ export class Tasks {
 
     this._tasks = [].concat(this._tasks.slice(0, index), task, this._tasks.slice(index + 1));
 
-    this._callHandler(this._dataChangeHandler);
+    this._callHandlers(this._dataChangeHandler);
 
     return true;
+  }
+
+  setFilter(filterType) {
+    this._activeFilterType = filterType;
+    this._callHandlers(this._filterChangeHandler);
+  }
+
+  setFilterChangeHandler(handler) {
+    this._filterChangeHandler.push(handler);
   }
 
   setDataChangeHandler(handler) {
     this._dataChangeHandler.push(handler);
   }
 
-  _callHandler(handlers) {
+  _callHandlers(handlers) {
     handlers.forEach((handler) => handler());
   }
 }

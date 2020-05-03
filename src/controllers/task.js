@@ -7,6 +7,7 @@ import {
 import {
   render,
   replace,
+  remove,
 } from '../utils/render';
 import {
   RenderPosition,
@@ -29,6 +30,8 @@ export class TaskController {
 
     this._taskComponent = null;
     this._taskEditComponent = null;
+
+    this._onEscKeyDown = this._onEscKeyDown.bind(this);
   }
 
   render(task) {
@@ -85,6 +88,12 @@ export class TaskController {
     }
   }
 
+  destroy() {
+    remove(this._taskEditComponent);
+    remove(this._taskComponent);
+    document.removeEventListener(`keydown`, this._onEscKeyDown);
+  }
+
   _replaceEditToTask() {
     this._taskEditComponent.reset();
     replace(this._taskComponent, this._taskEditComponent);
@@ -95,5 +104,14 @@ export class TaskController {
     this._onViewChange();
     replace(this._taskEditComponent, this._taskComponent);
     this._mode = Mode.EDIT;
+  }
+
+  _onEscKeyDown(evt) {
+    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      this._replaceEditToTask();
+      document.removeEventListener(`keydown`, this._onEscKeyDown);
+    }
   }
 }

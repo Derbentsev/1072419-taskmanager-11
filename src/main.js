@@ -2,14 +2,8 @@ import {
   SiteMenu
 } from './components/site-menu/site-menu';
 import {
-  Filter
-} from './components/filter/filter';
-import {
   Board
 } from './components/board/board';
-import {
-  generateFilters
-} from './mocks/filter';
 import {
   generateTasks
 } from './mocks/task';
@@ -24,6 +18,9 @@ import {
   BoardController
 } from './controllers/board';
 import {
+  FilterController
+} from './controllers/filter';
+import {
   TasksModel
 } from './models/tasks';
 
@@ -34,10 +31,9 @@ const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 const tasks = generateTasks(TASK_COUNT);
 const tasksModel = new TasksModel();
 tasksModel.setTasks(tasks);
-const filters = generateFilters();
 
-render(siteHeaderElement, new SiteMenu(), RenderPosition.BEFOREEND);
-render(siteMainElement, new Filter(filters), RenderPosition.BEFOREEND);
+const filterController = new FilterController(siteMainElement, tasksModel);
+filterController.render();
 
 const boardComponent = new Board();
 const boardController = new BoardController(boardComponent, tasksModel);
