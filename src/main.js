@@ -1,15 +1,10 @@
 import {
-  SiteMenu
+  SiteMenu,
+  MenuItem,
 } from './components/site-menu/site-menu';
-import {
-  Filter
-} from './components/filter/filter';
 import {
   Board
 } from './components/board/board';
-import {
-  generateFilters
-} from './mocks/filter';
 import {
   generateTasks
 } from './mocks/task';
@@ -23,19 +18,38 @@ import {
 import {
   BoardController
 } from './controllers/board';
+import {
+  FilterController
+} from './controllers/filter';
+import {
+  Tasks
+} from './models/tasks';
 
 
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
+const siteMenuComponent = new SiteMenu();
+
+render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
 
 const tasks = generateTasks(TASK_COUNT);
-const filters = generateFilters();
+const tasksModel = new Tasks();
+tasksModel.setTasks(tasks);
 
-render(siteHeaderElement, new SiteMenu(), RenderPosition.BEFOREEND);
-render(siteMainElement, new Filter(filters), RenderPosition.BEFOREEND);
+const filterController = new FilterController(siteMainElement, tasksModel);
+filterController.render();
 
 const boardComponent = new Board();
-const boardController = new BoardController(boardComponent);
-
 render(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
-boardController.render(tasks);
+
+const boardController = new BoardController(boardComponent, tasksModel);
+boardController.render();
+
+siteMenuComponent.setOnChange((menuItem) => {
+  switch (menuItem) {
+    case MenuItem.NEW_TASK:
+      siteMenuComponent.setActiveItem(menuItem.TASKS);
+      boardController.createTask();
+      break;
+  }
+});

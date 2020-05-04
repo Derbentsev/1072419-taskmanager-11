@@ -1,15 +1,23 @@
 import {
   Days,
-  Colors
+  COLORS,
 } from '../../consts';
 import {
   formatTime,
   formatDate,
+  isRepeating,
+  isOverdueDate,
 } from '../../utils/common';
+import {encode} from 'he';
 
 
-const isRepeating = (repeatingDays) => {
-  return Object.values(repeatingDays).some(Boolean);
+const MIN_DESCRIPTION_LENGTH = 1;
+const MAX_DESCRIPTION_LENGTH = 140;
+
+const isAllowableDescriptionLength = (description) => {
+  const length = description.length;
+
+  return length >= MIN_DESCRIPTION_LENGTH && length <= MAX_DESCRIPTION_LENGTH;
 };
 
 /**
@@ -71,12 +79,15 @@ const createReportingDaysMarkup = (days, repeatingDays) => {
 };
 
 const createTaskEditTemplate = (task, options = {}) => {
-  const {description, dueDate, color} = task;
-  const {isDateShowing, isRepeatingTask, activeRepeatingDays} = options;
+  const {dueDate, color} = task;
+  const {isDateShowing, isRepeatingTask, activeRepeatingDays, currentDescription} = options;
 
-  const isExpired = dueDate instanceof Date && dueDate < Date.now();
+  const description = encode(currentDescription);
+
+  const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, new Date());
   const isBlockSaveButton = (isDateShowing && isRepeatingTask) ||
-    (isRepeatingTask && !isRepeating(activeRepeatingDays));
+    (isRepeatingTask && !isRepeating(activeRepeatingDays)) ||
+      !isAllowableDescriptionLength(description);
 
   const date = (isDateShowing && dueDate) ? formatDate(dueDate) : ``;
   const time = (isDateShowing && dueDate) ? formatTime(dueDate) : ``;
@@ -84,23 +95,12 @@ const createTaskEditTemplate = (task, options = {}) => {
   const repeatClass = isRepeatingTask ? `card--repeat` : ``;
   const deadlineClass = isExpired ? `card--deadline` : ``;
 
-  const colorsMarkup = createColorsMarkup(Colors, color);
+  const colorsMarkup = createColorsMarkup(COLORS, color);
   const repeatingDaysMarkup = createReportingDaysMarkup(Days, activeRepeatingDays);
 
   return `<article class="card card--edit card--${color} ${repeatClass} ${deadlineClass}">
     <form class="card__form" method="get">
       <div class="card__inner">
-        <div class="card__control">
-          <button type="button" class="card__btn card__btn--archive">
-            archive
-          </button>
-          <button
-            type="button"
-            class="card__btn card__btn--favorites card__btn--disabled"
-          >
-            favorites
-          </button>
-        </div>
 
         <div class="card__color-bar">
           <svg class="card__color-bar-wave" width="100%" height="10">
@@ -168,5 +168,6 @@ const createTaskEditTemplate = (task, options = {}) => {
 
 
 export {
-  createTaskEditTemplate
+  createTaskEditTemplate,
+  isAllowableDescriptionLength,
 };

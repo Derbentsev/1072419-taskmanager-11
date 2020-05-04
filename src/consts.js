@@ -3,13 +3,15 @@ const RenderPosition = {
   BEFOREEND: `beforeend`,
 };
 
-const Colors = [
-  `black`,
-  `yellow`,
-  `blue`,
-  `green`,
-  `pink`,
-];
+const Color = {
+  BLACK: `black`,
+  YELLOW: `yellow`,
+  BLUE: `blue`,
+  GREEN: `green`,
+  PINK: `pink`,
+};
+
+const COLORS = Object.values(Color);
 
 const Days = [
   `mo`,
@@ -42,6 +44,15 @@ const SortType = {
   DEFAULT: `default`,
 };
 
+const FilterType = {
+  ALL: `all`,
+  ARCHIVE: `archive`,
+  FAVORITES: `favorites`,
+  OVERDUE: `overdue`,
+  REPEATING: `repeating`,
+  TODAY: `today`,
+};
+
 
 const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
@@ -50,10 +61,12 @@ const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 export {
   RenderPosition,
-  Colors,
+  Color,
+  COLORS,
   Days,
   MonthNames,
   SortType,
+  FilterType,
   TASK_COUNT,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON,

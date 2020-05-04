@@ -1,7 +1,9 @@
 import {
   formatTime,
   formatDate,
+  isOverdueDate,
 } from '../../utils/common';
+import {encode} from 'he';
 
 
 const createButtonMarkup = (name, isArchive = true) => {
@@ -18,13 +20,14 @@ const createButtonMarkup = (name, isArchive = true) => {
  * @return {void}
  */
 export const createTaskTemplate = (task) => {
-  const {description, dueDate, color, repeatingDays} = task;
+  const {description: notSanitizedDescription, dueDate, color, repeatingDays} = task;
 
-  const isExpired = dueDate instanceof Date && dueDate < Date.now();
+  const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, new Date());
   const isDateShowing = !!dueDate;
 
   const date = isDateShowing ? formatDate(dueDate) : ``;
   const time = isDateShowing ? formatTime(dueDate) : ``;
+  const description = encode(notSanitizedDescription);
 
   const editButton = createButtonMarkup(`edit`);
   const archiveButton = createButtonMarkup(`archive`, !task.isArchive);
