@@ -11,16 +11,11 @@ const filterNames = [
  * Генерируем фильтры
  * @return {array} Массив фильров
  */
-const generateFilters = () => {
+export const generateFilters = () => {
   return filterNames.map((it) => {
     return {
       name: it,
       count: Math.floor(Math.random() * 10),
     };
   });
-};
-
-
-export {
-  generateFilters
 };

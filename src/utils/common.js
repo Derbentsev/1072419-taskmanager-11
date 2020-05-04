@@ -19,13 +19,22 @@ const isRepeating = (repeatingDays) => {
 };
 
 const isOverdueDate = (dueDate, date) => {
+  if (typeof (date) === `number`) {
+    debugger;
+  }
+
   return dueDate < date && !isOneDay(date, dueDate);
 };
 
 const isOneDay = (dateA, dateB) => {
   const a = moment(dateA);
   const b = moment(dateB);
-  return a.diff(b, `days`) === 0 && dateA.getDate() === dateB.getDate();
+
+  try {
+    return a.diff(b, `days`) === 0 && dateA.getDate() === dateB.getDate();
+  } catch (err) {
+    debugger;
+  }
 };
 
 

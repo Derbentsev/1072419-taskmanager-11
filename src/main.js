@@ -22,7 +22,7 @@ import {
   FilterController
 } from './controllers/filter';
 import {
-  TasksModel
+  Tasks
 } from './models/tasks';
 
 
@@ -33,7 +33,7 @@ const siteMenuComponent = new SiteMenu();
 render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
 
 const tasks = generateTasks(TASK_COUNT);
-const tasksModel = new TasksModel();
+const tasksModel = new Tasks();
 tasksModel.setTasks(tasks);
 
 const filterController = new FilterController(siteMainElement, tasksModel);
@@ -51,6 +51,5 @@ siteMenuComponent.setOnChange((menuItem) => {
       siteMenuComponent.setActiveItem(menuItem.TASKS);
       boardController.createTask();
       break;
-
   }
 });

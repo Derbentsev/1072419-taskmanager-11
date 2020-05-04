@@ -1,6 +1,6 @@
 import {
   Days,
-  Colors
+  COLORS,
 } from '../../consts';
 import {
   formatTime,
@@ -84,7 +84,7 @@ const createTaskEditTemplate = (task, options = {}) => {
 
   const description = encode(currentDescription);
 
-  const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, Date.now());
+  const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, new Date());
   const isBlockSaveButton = (isDateShowing && isRepeatingTask) ||
     (isRepeatingTask && !isRepeating(activeRepeatingDays)) ||
       !isAllowableDescriptionLength(description);
@@ -95,23 +95,12 @@ const createTaskEditTemplate = (task, options = {}) => {
   const repeatClass = isRepeatingTask ? `card--repeat` : ``;
   const deadlineClass = isExpired ? `card--deadline` : ``;
 
-  const colorsMarkup = createColorsMarkup(Colors, color);
+  const colorsMarkup = createColorsMarkup(COLORS, color);
   const repeatingDaysMarkup = createReportingDaysMarkup(Days, activeRepeatingDays);
 
   return `<article class="card card--edit card--${color} ${repeatClass} ${deadlineClass}">
     <form class="card__form" method="get">
       <div class="card__inner">
-        <div class="card__control">
-          <button type="button" class="card__btn card__btn--archive">
-            archive
-          </button>
-          <button
-            type="button"
-            class="card__btn card__btn--favorites card__btn--disabled"
-          >
-            favorites
-          </button>
-        </div>
 
         <div class="card__color-bar">
           <svg class="card__color-bar-wave" width="100%" height="10">

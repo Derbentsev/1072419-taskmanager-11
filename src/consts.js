@@ -46,8 +46,8 @@ const SortType = {
 
 const FilterType = {
   ALL: `all`,
-  ARCGIVE: `archive`,
-  FAVORITES: `archive`,
+  ARCHIVE: `archive`,
+  FAVORITES: `favorites`,
   OVERDUE: `overdue`,
   REPEATING: `repeating`,
   TODAY: `today`,
@@ -61,6 +61,7 @@ const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 export {
   RenderPosition,
+  Color,
   COLORS,
   Days,
   MonthNames,

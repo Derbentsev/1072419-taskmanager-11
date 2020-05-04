@@ -47,7 +47,7 @@ export class TaskEdit extends AbstractSmartComponent {
       isDateShowing: this._isDateShowing,
       isRepeatingTask: this._isRepeatingTask,
       activeRepeatingDays: this._activeRepeatingDays,
-      _currentDescription: this._currentDescription,
+      currentDescription: this._currentDescription,
     });
   }
 

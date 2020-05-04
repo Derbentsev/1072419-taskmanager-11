@@ -1,5 +1,5 @@
 import {
-  Colors
+  COLORS
 } from '../consts';
 
 
@@ -48,7 +48,7 @@ const getRandomIntegerNumber = (min, max) => {
  */
 const getRandomDate = () => {
   const targetDate = new Date();
-  const sign = Math.random() > 0.5 ? 1 : 1;
+  const sign = Math.random() > 0.5 ? 1 : -1;
   const diffValue = sign * getRandomIntegerNumber(0, 8);
 
   targetDate.setDate(targetDate.getDate() + diffValue);
@@ -74,7 +74,7 @@ const generateTask = () => {
     description: getRandomArrayItem(DescriptionItems),
     dueDate,
     repeatingDays: dueDate ? DefaultRepeatingDays : generateRepeatingDays(),
-    color: getRandomArrayItem(Colors),
+    color: getRandomArrayItem(COLORS),
     isArchive: Math.random() > 0.5,
     isFavorite: Math.random() > 0.5,
   };

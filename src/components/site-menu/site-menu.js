@@ -22,7 +22,7 @@ export class SiteMenu extends AbstractComponent {
   }
 
   setOnChange(handler) {
-    this.geyElement().addEventListener(`change`, (evt) => {
+    this.getElement().addEventListener(`change`, (evt) => {
       if (evt.target.tagName !== `INPUT`) {
         return;
       }

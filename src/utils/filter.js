@@ -1,4 +1,8 @@
-import {isRepeating, isOneDay, isOverdueDate} from './common';
+import {
+  isRepeating,
+  isOneDay,
+  isOverdueDate
+} from './common';
 import {FilterType} from '../consts';
 
 
@@ -7,7 +11,7 @@ const getArchiveTasks = (tasks) => {
 };
 
 const getNotArchiveTasks = (tasks) => {
-  tasks.filter((task) => !task.isArchive);
+  return tasks.filter((task) => !task.isArchive);
 };
 
 const getFavoriteTasks = (tasks) => {
@@ -31,7 +35,9 @@ const getRepeatingTasks = (tasks) => {
 };
 
 const getTasksInOneDay = (tasks, date) => {
-  return tasks.filter((task) => isOneDay(task.dueDate, date));
+  return tasks.filter((task) => {
+    isOneDay(task.dueDate, date);
+  });
 };
 
 const getTasksByFilter = (tasks, filterType) => {
@@ -45,7 +51,7 @@ const getTasksByFilter = (tasks, filterType) => {
     case FilterType.FAVORITES:
       return getFavoriteTasks(getNotArchiveTasks(tasks));
     case FilterType.OVERDUE:
-      return getOverdueTasks(getNotArchiveTasks(tasks, nowDate));
+      return getOverdueTasks(getNotArchiveTasks(tasks), nowDate);
     case FilterType.REPEATING:
       return getRepeatingTasks(getNotArchiveTasks(tasks));
     case FilterType.TODAY:

@@ -26,7 +26,7 @@ const createFilterMarkup = (filter, isChecked) => {
  * @param {object} filters - Массив фильтров
  * @return {string}
  */
-const createFilterTemplate = (filters) => {
+export const createFilterTemplate = (filters) => {
   const filtersMarkup = filters.map((it) => createFilterMarkup(it, it.checked)).join(`\n`);
 
   return (
@@ -34,8 +34,4 @@ const createFilterTemplate = (filters) => {
     ${filtersMarkup}
     </section>`
   );
-};
-
-export {
-  createFilterTemplate
 };

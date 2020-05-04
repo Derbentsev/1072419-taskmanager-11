@@ -1,6 +1,12 @@
-import {FilterComponent} from '../components/filter/filter';
-import {FilterType} from '../consts';
-import {render, replace, RenderPosition} from '../utils/render';
+import {Filter} from '../components/filter/filter';
+import {
+  FilterType,
+  RenderPosition,
+} from '../consts';
+import {
+  render,
+  replace,
+} from '../utils/render';
 import {getTasksByFilter} from '../utils/filter';
 
 
@@ -30,7 +36,7 @@ export class FilterController {
     });
     const oldComponent = this._filterComponent;
 
-    this._filterComponent = new FilterComponent(filters);
+    this._filterComponent = new Filter(filters);
     this._filterComponent.setFilterChangeHandler(this._onFilterChange);
 
     if (oldComponent) {
