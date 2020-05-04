@@ -28,7 +28,7 @@ import {
 
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
-const siteMenuComponent = new siteMenuComponent();
+const siteMenuComponent = new SiteMenu();
 
 render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
 

@@ -3,6 +3,7 @@ import {createTaskEditTemplate,
 } from './task-edit-tpl';
 import {AbstractSmartComponent} from '../abstract-smart-component';
 import {Days} from '../../consts';
+
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 

@@ -61,7 +61,7 @@ const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 export {
   RenderPosition,
-  Colors,
+  COLORS,
   Days,
   MonthNames,
   SortType,

@@ -19,7 +19,7 @@ const isRepeating = (repeatingDays) => {
 };
 
 const isOverdueDate = (dueDate, date) => {
-  return dueDate < date && !isOneDay(date, dueDate)
+  return dueDate < date && !isOneDay(date, dueDate);
 };
 
 const isOneDay = (dateA, dateB) => {

@@ -148,7 +148,7 @@ export class TaskController {
     const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
 
     if (isEscKey) {
-      if(this._mode === Mode.ADDING) {
+      if (this._mode === Mode.ADDING) {
         this._onDataChange(this, EmptyTask, null);
       }
       this._replaceEditToTask();

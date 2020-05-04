@@ -160,7 +160,7 @@ export class BoardController {
 
         if (this._showingTasksCount % SHOWING_TASKS_COUNT_BY_BUTTON === 0) {
           const destroyedTask = this._showedTaskControllers.pop();
-          destriyedTask.destroy();
+          destroyedTask.destroy();
         }
 
         this._showedTaskControllers = [].concat(taskController, this._showedTaskControllers);
