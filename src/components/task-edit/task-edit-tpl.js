@@ -10,6 +10,15 @@ import {
 } from '../../utils/common';
 
 
+const MIN_DESCRIPTION_LENGTH = 1;
+const MAX_DESCRIPTION_LENGTH = 140;
+
+const isAllowableDescriptionLength = (description) => {
+  const length = description.length;
+
+  return length >= MIN_DESCRIPTION_LENGTH && length <= MAX_DESCRIPTION_LENGTH;
+};
+
 /**
  * Создаем шаблон разметки цветов в задаче
  * @param {object} colors - Цвета
@@ -69,12 +78,13 @@ const createReportingDaysMarkup = (days, repeatingDays) => {
 };
 
 const createTaskEditTemplate = (task, options = {}) => {
-  const {description, dueDate, color} = task;
-  const {isDateShowing, isRepeatingTask, activeRepeatingDays} = options;
+  const {dueDate, color} = task;
+  const {isDateShowing, isRepeatingTask, activeRepeatingDays, currentDescription: description} = options;
 
   const isExpired = dueDate instanceof Date && isOverdueDate(dueDate, Date.now());
   const isBlockSaveButton = (isDateShowing && isRepeatingTask) ||
-    (isRepeatingTask && !isRepeating(activeRepeatingDays));
+    (isRepeatingTask && !isRepeating(activeRepeatingDays)) || 
+      !isAllowableDescriptionLength(description);
 
   const date = (isDateShowing && dueDate) ? formatDate(dueDate) : ``;
   const time = (isDateShowing && dueDate) ? formatTime(dueDate) : ``;
@@ -166,5 +176,6 @@ const createTaskEditTemplate = (task, options = {}) => {
 
 
 export {
-  createTaskEditTemplate
+  createTaskEditTemplate,
+  isAllowableDescriptionLength,
 };

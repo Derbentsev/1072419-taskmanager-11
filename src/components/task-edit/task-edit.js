@@ -1,8 +1,10 @@
-import {createTaskEditTemplate} from './task-edit-tpl';
+import {createTaskEditTemplate,
+  isAllowableDescriptionLength,
+} from './task-edit-tpl';
 import {AbstractSmartComponent} from '../abstract-smart-component';
+import {Days} from '../../consts';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
-import {Days} from '../../consts';
 
 
 const parseFormData = (formData) => {
@@ -31,6 +33,7 @@ export class TaskEdit extends AbstractSmartComponent {
     this._isDateShowing = !!task.dueDate;
     this._isRepeatingTask = Object.values(task.repeatingDays).some(Boolean);
     this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
+    this._currentDescription = task.description;
     this._flatpickr = null;
     this._submitHandler = null;
 
@@ -43,6 +46,7 @@ export class TaskEdit extends AbstractSmartComponent {
       isDateShowing: this._isDateShowing,
       isRepeatingTask: this._isRepeatingTask,
       activeRepeatingDays: this._activeRepeatingDays,
+      _currentDescription: this._currentDescription,
     });
   }
 
@@ -73,6 +77,7 @@ export class TaskEdit extends AbstractSmartComponent {
     this._isDateShowing = !!task.dueDate;
     this._isRepeatingTask = Object.values(task.repeatingDays).some(Boolean);
     this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
+    this._currentDescription = task.description;
 
     this.rerender();
   }
@@ -100,6 +105,13 @@ export class TaskEdit extends AbstractSmartComponent {
 
   _subscribeOnEvents() {
     const element = this.getElement();
+
+    element.querySelector(`.card__text`).addEventListener(`input`, (evt) => {
+      this._currentDescription = evt.target.value;
+
+      const saveButton = this.getElement().querySelector(`.card__save`);
+      saveButton.disabled = !isAllowableDescriptionLength(this._currentDescription);
+    });
 
     element.querySelector(`.card__date-deadline-toggle`)
       .addEventListener(`click`, () => {

@@ -67,6 +67,7 @@ export class BoardController {
     this._sortComponent = new Sort();
     this._tasksComponent = new Tasks();
     this._loadButtonComponent = new LoadButton();
+    this._creatingTask = null;
 
     this._onDataChange = this._onDataChange.bind(this);
     this._onSortTypeChange = this._onSortTypeChange.bind(this);
@@ -97,6 +98,16 @@ export class BoardController {
     this._showedTasksControllers = this._showedTasksControllers.concat(newTasks);
 
     this._showingTasksCount = this._showedTasksControllers.length;
+  }
+
+  createTask() {
+    if (this._creatingTask) {
+      return;
+    }
+
+    const taskListElement = this._tasksComponent.getElement();
+    this._creatingTask = new TaskController(taskListElement, this._onDataChange, this._onViewChange);
+    this._creatingTask.render(EmptyTask, TaskController.ADDING);
   }
 
   _removeTasks() {
