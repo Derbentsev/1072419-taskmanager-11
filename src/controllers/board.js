@@ -80,6 +80,14 @@ export class BoardController {
     this._tasksModel.setFilterChangeHandler(this._onFilterChange);
   }
 
+  hide() {
+    this._container.hide();
+  }
+
+  show() {
+    this._container.show();
+  }
+
   render() {
     const container = this._container.getElement();
     const tasks = this._tasksModel.getTasks();
