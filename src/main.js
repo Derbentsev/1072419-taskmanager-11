@@ -22,6 +22,9 @@ import {
   FilterController
 } from './controllers/filter';
 import {
+  StatisticsComponent
+} from './components/statistics';
+import {
   Tasks
 } from './models/tasks';
 
@@ -45,11 +48,32 @@ render(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
 const boardController = new BoardController(boardComponent, tasksModel);
 boardController.render();
 
+const dateTo = newDate();
+const dateFrom = (() => {
+  const d = new Date(dateTo);
+  d.setDate(d.getDate() - 7);
+  return d;
+})();
+
+const statisticsComponent = new StatisticComponent({tasks: tasksModel, dateFrom, dateTo});
+render(siteMainElement, statisticsComponent, RenderPosition.BEFOREEND);
+statisticsComponent.hide();
+
 siteMenuComponent.setOnChange((menuItem) => {
   switch (menuItem) {
     case MenuItem.NEW_TASK:
       siteMenuComponent.setActiveItem(menuItem.TASKS);
+      statisticsComponent.hide();
+      boardController.show();
       boardController.createTask();
+      break;
+    case MenuItem.STATISTICS:
+      boardController.hide();
+      statisticsComponent.show();
+      break;
+    case MenuItem.TASKS:
+      statisticsComponent.hide();
+      boardController.show();
       break;
   }
 });
