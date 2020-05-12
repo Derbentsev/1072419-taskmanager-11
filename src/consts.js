@@ -53,8 +53,6 @@ const FilterType = {
   TODAY: `today`,
 };
 
-
-const TASK_COUNT = 22;
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
@@ -67,7 +65,6 @@ export {
   MonthNames,
   SortType,
   FilterType,
-  TASK_COUNT,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON,
 };

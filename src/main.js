@@ -6,14 +6,10 @@ import {
   Board
 } from './components/board/board';
 import {
-  generateTasks
-} from './mocks/task';
-import {
   render,
 } from './utils/render';
 import {
   RenderPosition,
-  TASK_COUNT,
 } from './consts';
 import {
   BoardController
@@ -27,7 +23,12 @@ import {
 import {
   Tasks
 } from './models/tasks';
+import {
+  API
+} from './api';
 
+
+const AUTHORIZATION = `Basic rhfjhjk64hjk64hjk4`;
 
 const dateTo = new Date();
 const dateFrom = (() => {
@@ -36,9 +37,8 @@ const dateFrom = (() => {
   return d;
 })();
 
-const tasks = generateTasks(TASK_COUNT);
+const api = new API(AUTHORIZATION);
 const tasksModel = new Tasks();
-tasksModel.setTasks(tasks);
 
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
@@ -51,8 +51,6 @@ const filterController = new FilterController(siteMainElement, tasksModel);
 render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
 filterController.render();
 render(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
-boardController.render();
-
 render(siteMainElement, statisticsComponent, RenderPosition.BEFOREEND);
 statisticsComponent.hide();
 
@@ -74,3 +72,9 @@ siteMenuComponent.setOnChange((menuItem) => {
       break;
   }
 });
+
+api.getTasks()
+  .then((tasks) => {
+    tasksModel.setTasks(tasks);
+    boardController.render();
+  });
