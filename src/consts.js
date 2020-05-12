@@ -55,6 +55,8 @@ const FilterType = {
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
+const AUTHORIZATION = `Basic rhfjhjk64hjk64hjk4`;
+const END_POINT = `https://11.ecmascript.pages.academy/task-manager`;
 
 
 export {
@@ -67,4 +69,6 @@ export {
   FilterType,
   SHOWING_TASKS_COUNT_ON_START,
   SHOWING_TASKS_COUNT_BY_BUTTON,
+  AUTHORIZATION,
+  END_POINT,
 };

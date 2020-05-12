@@ -2,6 +2,9 @@ import {
   Task
 } from '../components/task/task';
 import {
+  TaskModel
+} from '../models/task';
+import {
   TaskEdit
 } from '../components/task-edit/task-edit';
 import {
@@ -12,6 +15,7 @@ import {
 import {
   RenderPosition,
   Color,
+  Days,
 } from '../consts';
 
 
@@ -38,6 +42,25 @@ export const EmptyTask = {
   isArchive: false,
 };
 
+const parseFormData = (formData) => {
+  const date = formData.get(`date`);
+  const repeatingDays = Days.reduce((acc, day) => {
+    acc[day] = false;
+    return acc;
+  }, {});
+
+  return new TaskModel({
+    'description': formData.get(`text`),
+    'due_date': date ? new Date(date) : null,
+    'repeating_days': formData.getAll(`repeat`).reduce((acc, it) => {
+      acc[it] = true;
+      return acc;
+    }, repeatingDays),
+    'color': formData.get(`color`),
+    'is_favorite': false,
+    'is_done': false,
+  });
+};
 
 export class TaskController {
   constructor(container, onDataChange, onViewChange) {
@@ -68,7 +91,10 @@ export class TaskController {
 
     const onEditFormSubmit = (evt) => {
       evt.preventDefault();
-      const data = this._taskEditComponent.getData();
+
+      const formData = this._taskEditComponent.getData();
+      const data = parseFormData(formData);
+
       this._onDataChange(this, task, data);
       document.removeEventListener(`keydown`, onEscKeydown);
     };
@@ -81,15 +107,15 @@ export class TaskController {
     };
 
     this._taskComponent.setArchiveButtonClickHandler(() => {
-      this._onDataChange(this, task, Object.assign({}, task, {
-        isArchive: !task.isArchive,
-      }));
+      const newTask = TaskModel.clone(task);
+      newTask.isArchive = !newTask.isArchive;
+      this._onDataChange(this, task, newTask);
     });
 
     this._taskComponent.setFavoritesButtonClickHandler(() => {
-      this._onDataChange(this, task, Object.assign({}, task, {
-        isFavorite: !task.isFavorite,
-      }));
+      const newTask = TaskModel.clone(task);
+      newTask.isFavorite = !newTask.isFavorite;
+      this._onDataChange(this, task, newTask);
     });
 
     this._taskComponent.setEditButtonClickHandler(onEditButtonClick);

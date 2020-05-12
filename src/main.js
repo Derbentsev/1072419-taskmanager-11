@@ -10,6 +10,8 @@ import {
 } from './utils/render';
 import {
   RenderPosition,
+  AUTHORIZATION,
+  END_POINT,
 } from './consts';
 import {
   BoardController
@@ -28,8 +30,6 @@ import {
 } from './api';
 
 
-const AUTHORIZATION = `Basic rhfjhjk64hjk64hjk4`;
-
 const dateTo = new Date();
 const dateFrom = (() => {
   const d = new Date(dateTo);
@@ -37,15 +37,16 @@ const dateFrom = (() => {
   return d;
 })();
 
-const api = new API(AUTHORIZATION);
+const api = new API(END_POINT, AUTHORIZATION);
 const tasksModel = new Tasks();
 
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 const siteMenuComponent = new SiteMenu();
 const statisticsComponent = new Statistics({tasks: tasksModel, dateFrom, dateTo});
+
 const boardComponent = new Board();
-const boardController = new BoardController(boardComponent, tasksModel);
+const boardController = new BoardController(boardComponent, tasksModel, api);
 const filterController = new FilterController(siteMainElement, tasksModel);
 
 render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
