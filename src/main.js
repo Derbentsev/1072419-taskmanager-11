@@ -6,14 +6,12 @@ import {
   Board
 } from './components/board/board';
 import {
-  generateTasks
-} from './mocks/task';
-import {
   render,
 } from './utils/render';
 import {
   RenderPosition,
-  TASK_COUNT,
+  AUTHORIZATION,
+  END_POINT,
 } from './consts';
 import {
   BoardController
@@ -27,26 +25,10 @@ import {
 import {
   Tasks
 } from './models/tasks';
+import {
+  API
+} from './api';
 
-
-const siteMainElement = document.querySelector(`.main`);
-const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
-const siteMenuComponent = new SiteMenu();
-
-render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
-
-const tasks = generateTasks(TASK_COUNT);
-const tasksModel = new Tasks();
-tasksModel.setTasks(tasks);
-
-const filterController = new FilterController(siteMainElement, tasksModel);
-filterController.render();
-
-const boardComponent = new Board();
-render(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
-
-const boardController = new BoardController(boardComponent, tasksModel);
-boardController.render();
 
 const dateTo = new Date();
 const dateFrom = (() => {
@@ -55,7 +37,21 @@ const dateFrom = (() => {
   return d;
 })();
 
+const api = new API(END_POINT, AUTHORIZATION);
+const tasksModel = new Tasks();
+
+const siteMainElement = document.querySelector(`.main`);
+const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
+const siteMenuComponent = new SiteMenu();
 const statisticsComponent = new Statistics({tasks: tasksModel, dateFrom, dateTo});
+
+const boardComponent = new Board();
+const boardController = new BoardController(boardComponent, tasksModel, api);
+const filterController = new FilterController(siteMainElement, tasksModel);
+
+render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
+filterController.render();
+render(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
 render(siteMainElement, statisticsComponent, RenderPosition.BEFOREEND);
 statisticsComponent.hide();
 
@@ -77,3 +73,9 @@ siteMenuComponent.setOnChange((menuItem) => {
       break;
   }
 });
+
+api.getTasks()
+  .then((tasks) => {
+    tasksModel.setTasks(tasks);
+    boardController.render();
+  });

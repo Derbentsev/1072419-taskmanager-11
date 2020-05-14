@@ -1,30 +1,13 @@
-import {createTaskEditTemplate,
+import {
+  createTaskEditTemplate,
   isAllowableDescriptionLength,
 } from './task-edit-tpl';
-import {AbstractSmartComponent} from '../abstract-smart-component';
-import {Days} from '../../consts';
-
+import {
+  AbstractSmartComponent
+} from '../abstract-smart-component';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
-
-const parseFormData = (formData) => {
-  const repeatingDays = Days.reduce((acc, day) => {
-    acc[day] = false;
-    return acc;
-  }, {});
-  const date = formData.get(`date`);
-
-  return {
-    description: formData.get(`text`),
-    color: formData.get(`color`),
-    dueDate: date ? new Date(date) : null,
-    repeatingDays: formData.getAll(`repeat`).reduce((acc, it) => {
-      acc[it] = true;
-      return acc;
-    }, repeatingDays),
-  };
-};
 
 export class TaskEdit extends AbstractSmartComponent {
   constructor(task) {
@@ -85,9 +68,7 @@ export class TaskEdit extends AbstractSmartComponent {
 
   getData() {
     const form = this.getElement().querySelector(`.card__form`);
-    const formData = new FormData(form);
-
-    return parseFormData(formData);
+    return new FormData(form);
   }
 
   setSubmitHandler(handler) {
