@@ -80,7 +80,7 @@ const createReportingDaysMarkup = (days, repeatingDays) => {
 
 const createTaskEditTemplate = (task, options = {}) => {
   const {dueDate, color} = task;
-  const {isDateShowing, isRepeatingTask, activeRepeatingDays, currentDescription} = options;
+  const {isDateShowing, isRepeatingTask, activeRepeatingDays, currentDescription, externalData} = options;
 
   const description = encode(currentDescription);
 
@@ -97,6 +97,9 @@ const createTaskEditTemplate = (task, options = {}) => {
 
   const colorsMarkup = createColorsMarkup(COLORS, color);
   const repeatingDaysMarkup = createReportingDaysMarkup(Days, activeRepeatingDays);
+
+  const deleteButtonText = externalData.deleteButtonText;
+  const saveButtonText = externalData.saveButtonText;
 
   return `<article class="card card--edit card--${color} ${repeatClass} ${deadlineClass}">
     <form class="card__form" method="get">
@@ -158,8 +161,8 @@ const createTaskEditTemplate = (task, options = {}) => {
         </div>
 
         <div class="card__status-btns">
-          <button class="card__save" type="submit" ${isBlockSaveButton ? `disabled` : ``}>save</button>
-          <button class="card__delete" type="button">delete</button>
+          <button class="card__save" type="submit" ${isBlockSaveButton ? `disabled` : ``}>${saveButtonText}</button>
+          <button class="card__delete" type="button">${deleteButtonText}</button>
         </div>
       </div>
     </form>

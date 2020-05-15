@@ -31,6 +31,17 @@ export class API {
       .then(TaskModel.parseTasks);
   }
 
+  createTask(task) {
+    return this._load({
+      url: `tasks`,
+      method: Method.POST,
+      body: JSON.stringify(task.toRAW()),
+      headers: new Headers({'Content-Type': `application/json`})
+    })
+      .return((response) => response.json())
+      .then(TaskModel.parseTask);
+  }
+
   updateTask(id, data) {
     return this._load({
       url: `tasks/${id}`,
@@ -40,6 +51,10 @@ export class API {
     })
       .then((response) => response.json())
       .then(TaskModel.parseTask);
+  }
+
+  deleteTask(id) {
+    return this._load({url: `tasks/${id}`, method: Method.DELETE});
   }
 
   _load({url, method = Method.GET, body = null, headers = new Headers()}) {
