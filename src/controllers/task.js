@@ -19,7 +19,9 @@ import {
 } from '../consts';
 
 
-export const Mode = {
+const SHAKE_ANIMATION_TIMEOUT = 600;
+
+export const TaskControllerMode = {
   ADDING: `adding`,
   DEFAULT: `default`,
   EDIT: `edit`,
@@ -68,7 +70,7 @@ export class TaskController {
     this._onDataChange = onDataChange;
 
     this._onViewChange = onViewChange;
-    this._mode = Mode.DEFAULT;
+    this._mode = TaskControllerMode.DEFAULT;
 
     this._taskComponent = null;
     this._taskEditComponent = null;
@@ -95,6 +97,10 @@ export class TaskController {
       const formData = this._taskEditComponent.getData();
       const data = parseFormData(formData);
 
+      this._taskEditComponent.setData({
+        saveButtonText: `Saving...`,
+      });
+
       this._onDataChange(this, task, data);
       document.removeEventListener(`keydown`, onEscKeydown);
     };
@@ -120,10 +126,16 @@ export class TaskController {
 
     this._taskComponent.setEditButtonClickHandler(onEditButtonClick);
     this._taskEditComponent.setSubmitHandler(onEditFormSubmit);
-    this._taskEditComponent.setDeleteButtonClickHandler(() => this._onDataChange(this, task, null));
+    this._taskEditComponent.setDeleteButtonClickHandler(() => {
+      this._taskEditComponent.setData({
+        deleteButtonText: `Deleting...`,
+      });
+
+      this._onDataChange(this, task, null);
+    });
 
     switch (mode) {
-      case Mode.DEFAULT:
+      case TaskControllerMode.DEFAULT:
         if (oldTaskComponent && oldTaskEditComponent) {
           replace(this._taskComponent, oldTaskComponent);
           replace(this._taskEditComponent, oldTaskEditComponent);
@@ -132,7 +144,7 @@ export class TaskController {
           render(this._container, this._taskComponent, RenderPosition.BEFOREEND);
         }
         break;
-      case Mode.ADDING:
+      case TaskControllerMode.ADDING:
         if (oldTaskComponent && oldTaskEditComponent) {
           remove(oldTaskComponent);
           remove(oldTaskEditComponent);
@@ -145,7 +157,7 @@ export class TaskController {
   }
 
   setDefaultView() {
-    if (this._mode !== Mode.DEFAULT) {
+    if (this._mode !== TaskControllerMode.DEFAULT) {
       this._replaceEditToTask();
     }
   }
@@ -156,25 +168,40 @@ export class TaskController {
     document.removeEventListener(`keydown`, this._onEscKeyDown);
   }
 
+  shake() {
+    this._taskEditComponent.getElement().style.animation = `shake ${SHAKE_ANIMATION_TIMEOUT / 1000}s`;
+    this._taskEditComponent.getElement().style.animation = `shake ${SHAKE_ANIMATION_TIMEOUT / 1000}s`;
+
+    setTimeout(() => {
+      this._taskEditComponent.getElement().style.animation = ``;
+      this._taskComponent.getElement().style.animation = ``;
+
+      this._taskEditComponent.setData({
+        saveButtonText: `Save`,
+        deleteButtonText: `Delete`,
+      });
+    }, SHAKE_ANIMATION_TIMEOUT);
+  }
+
   _replaceEditToTask() {
     this._taskEditComponent.reset();
     if (document.contains(this._taskEditComponent.getElement())) {
       replace(this._taskComponent, this._taskEditComponent);
     }
-    this._mode = Mode.DEFAULT;
+    this._mode = TaskControllerMode.DEFAULT;
   }
 
   _replaceTaskToEdit() {
     this._onViewChange();
     replace(this._taskEditComponent, this._taskComponent);
-    this._mode = Mode.EDIT;
+    this._mode = TaskControllerMode.EDIT;
   }
 
   _onEscKeyDown(evt) {
     const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
 
     if (isEscKey) {
-      if (this._mode === Mode.ADDING) {
+      if (this._mode === TaskControllerMode.ADDING) {
         this._onDataChange(this, EmptyTask, null);
       }
       this._replaceEditToTask();
