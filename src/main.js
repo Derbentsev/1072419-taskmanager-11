@@ -15,8 +15,6 @@ import {
   RenderPosition,
   AUTHORIZATION,
   END_POINT,
-  STORE_PREFIX,
-  STORE_VER,
   STORE_NAME,
 } from './consts';
 
