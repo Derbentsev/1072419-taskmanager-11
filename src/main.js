@@ -5,7 +5,7 @@ import {FilterController} from './controllers/filter';
 import {Statistics} from './components/statistics';
 import {Tasks} from './models/tasks';
 import {API} from './api/index';
-import Store from './api/store';
+import {Store} from './api/store';
 import {Provider} from './api/provider';
 import {
   SiteMenu,
@@ -71,3 +71,22 @@ apiWithProvider.getTasks()
     tasksModel.setTasks(tasks);
     boardController.render();
   });
+
+window.addEventListener(`load`, () => {
+  navigator.serviceWorker.register(`/sw.js`)
+    .then(() => {
+
+    }).catch(() => {
+
+    });
+});
+
+window.addEventListener(`online`, () => {
+  document.title = document.title.replace(` [offline]`, ``);
+
+  apiWithProvider.sync();
+});
+
+window.addEventListener(`offline`, () => {
+  document.title += ` [offline]`;
+});

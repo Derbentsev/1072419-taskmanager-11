@@ -25,8 +25,10 @@ export class API {
 
   getTasks() {
     return this._load({url: `tasks`})
-      .then(checkStatus)
       .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
       .then(TaskModel.parseTasks);
   }
 
@@ -37,7 +39,7 @@ export class API {
       body: JSON.stringify(task.toRAW()),
       headers: new Headers({'Content-Type': `application/json`})
     })
-      .return((response) => response.json())
+      .then((response) => response.json())
       .then(TaskModel.parseTask);
   }
 

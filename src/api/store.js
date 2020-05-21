@@ -20,7 +20,9 @@ export class Store {
   }
 
   setItem(key, value) {
-    const store = this.getItems(
+    const store = this.getItems();
+
+    this._storage.setItem(
         this._storeKey,
         JSON.stringify(
             Object.assign({}, store, {
