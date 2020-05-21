@@ -1,33 +1,24 @@
+import {Board} from './components/board/board';
+import {render} from './utils/render';
+import {BoardController} from './controllers/board';
+import {FilterController} from './controllers/filter';
+import {Statistics} from './components/statistics';
+import {Tasks} from './models/tasks';
+import {API} from './api/index';
+import Store from './api/store';
+import {Provider} from './api/provider';
 import {
   SiteMenu,
   MenuItem,
 } from './components/site-menu/site-menu';
 import {
-  Board
-} from './components/board/board';
-import {
-  render,
-} from './utils/render';
-import {
   RenderPosition,
   AUTHORIZATION,
   END_POINT,
+  STORE_PREFIX,
+  STORE_VER,
+  STORE_NAME,
 } from './consts';
-import {
-  BoardController
-} from './controllers/board';
-import {
-  FilterController
-} from './controllers/filter';
-import {
-  Statistics
-} from './components/statistics';
-import {
-  Tasks
-} from './models/tasks';
-import {
-  API
-} from './api';
 
 
 const dateTo = new Date();
@@ -38,6 +29,9 @@ const dateFrom = (() => {
 })();
 
 const api = new API(END_POINT, AUTHORIZATION);
+const store = new Store(STORE_NAME, window.localStorage);
+const apiWithProvider = new Provider(api, store);
+
 const tasksModel = new Tasks();
 
 const siteMainElement = document.querySelector(`.main`);
@@ -46,7 +40,7 @@ const siteMenuComponent = new SiteMenu();
 const statisticsComponent = new Statistics({tasks: tasksModel, dateFrom, dateTo});
 
 const boardComponent = new Board();
-const boardController = new BoardController(boardComponent, tasksModel, api);
+const boardController = new BoardController(boardComponent, tasksModel, apiWithProvider);
 const filterController = new FilterController(siteMainElement, tasksModel);
 
 render(siteHeaderElement, siteMenuComponent, RenderPosition.BEFOREEND);
@@ -74,7 +68,7 @@ siteMenuComponent.setOnChange((menuItem) => {
   }
 });
 
-api.getTasks()
+apiWithProvider.getTasks()
   .then((tasks) => {
     tasksModel.setTasks(tasks);
     boardController.render();

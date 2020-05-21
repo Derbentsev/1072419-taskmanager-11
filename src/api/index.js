@@ -1,6 +1,5 @@
-import {
-  TaskModel,
-} from './models/task';
+import {TaskModel} from '../models/task';
+
 
 const Method = {
   GET: `GET`,

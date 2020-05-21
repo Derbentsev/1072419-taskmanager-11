@@ -1,5 +1,3 @@
-import {Task} from "../components/task/task";
-
 export class TaskModel {
   constructor(data) {
     this.id = data[`id`];
@@ -32,6 +30,6 @@ export class TaskModel {
   }
 
   static clone(data) {
-    return new Task(data.toRAW());
+    return new TaskModel(data.toRAW());
   }
 }
