@@ -56,7 +56,7 @@ const FilterType = {
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
-const AUTHORIZATION = `Basic rhfjhjk64hjk64hjk4`;
+const AUTHORIZATION = `Basic gngnfjkgnj7u7y7dfj`;
 const END_POINT = `https://11.ecmascript.pages.academy/task-manager`;
 
 const STORE_PREFIX = `taskmanager-localstorage`;

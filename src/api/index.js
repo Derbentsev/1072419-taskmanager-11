@@ -26,9 +26,6 @@ export class API {
   getTasks() {
     return this._load({url: `tasks`})
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
       .then(TaskModel.parseTasks);
   }
 
